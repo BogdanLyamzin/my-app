@@ -1,6 +1,14 @@
 import ProductDetailsCard from "@/modules/ProductDetailsCard/ProductDetailsCard";
 
-import { getProductById } from "@/api/products";
+import { getAllProducts, getProductById } from "@/api/products";
+
+export async function generateStaticParams() {
+    const data = await getAllProducts();
+
+    return data.map(({id}) => ({
+        id,
+    }))
+}
 
 const OneProductPage = async ({params})=> {
     const data = await getProductById(params.id);
